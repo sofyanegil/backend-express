@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
+const router = require('./routes');
 //init app
 const app = express();
 
@@ -27,19 +28,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.post('/product', (req, res) => {
-  const { product } = req.body;
-
-  res
-    .json({
-      status: 'success',
-      message: 'success add data',
-      data: {
-        product,
-      },
-    })
-    .statusCode();
-});
+//define routes
+app.use('/api', router);
 
 //start server
 app.listen(port, () => {
