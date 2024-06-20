@@ -5,30 +5,20 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const router = require('./routes');
-//init app
+
 const app = express();
-
-//use cors
-app.use(cors());
-
-//use body parser
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// parse application/json
-app.use(bodyParser.json());
-
+const port = 3000;
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(morgan('combined', { stream: accessLogStream }));
-//define port
-const port = 3000;
 
-//route
+//routes
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
-
-//define routes
 app.use('/api', router);
 
 //start server

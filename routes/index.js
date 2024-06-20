@@ -1,17 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
+// middlewares
 const verifyToken = require('../middlewares/auth');
 
+// controllers
 const registerController = require('../controllers/RegisterController');
 const loginController = require('../controllers/LoginController');
 const userController = require('../controllers/UserController');
 
-//import validate
+// validators
 const { validateRegister } = require('../utils/validators/auth');
 const { validateLogin } = require('../utils/validators/auth');
 const { validateUser } = require('../utils/validators/user');
 
+// routes
 router.post('/register', validateRegister, registerController.register);
 router.post('/login', validateLogin, loginController.login);
 router.get('/admin/users', verifyToken, userController.findUsers);

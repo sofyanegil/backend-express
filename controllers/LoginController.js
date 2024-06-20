@@ -1,4 +1,3 @@
-//import express
 const express = require('express');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
@@ -6,11 +5,9 @@ const jwt = require('jsonwebtoken');
 const prisma = require('../prisma/client');
 
 const login = async (req, res) => {
-  // Periksa hasil validasi
+  // Check if there are validation errors
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
-    // Jika ada error, kembalikan error ke pengguna
     return res.status(422).json({
       success: false,
       message: 'Validation error',
